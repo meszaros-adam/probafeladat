@@ -1,8 +1,14 @@
-Tisztelt Kapcsolattartó! 
+<div>Tisztelt Kapcsolattartó!</div>
 
-A {{$project->name}} nevű projecten az alábbi változások történtek!
+<div>A {{$project->id}} azonosítójú projekten változások történtek!</div>
 
-@foreach($changes as $change)
-    {{$project->$change}}
+<div>Projekt neve: {{$project->name}}</div>
+
+<div>Projekt leírása: {{$project->description}}</div>
+
+<div>Kapcsolattartók:</div>
+
+@foreach($project->contacts as $contact)
+<div>{{$contact->name}}</div>
+<div>{{$contact->email}}</div>
 @endforeach
-

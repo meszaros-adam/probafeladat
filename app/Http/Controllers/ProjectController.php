@@ -14,13 +14,14 @@ class ProjectController extends Controller
 
     public function get(Request $request)
     {
-        if ($request->filter == "null"){
+        if ($request->filter == "null") {
             return Project::orderBy('id', 'desc')->withCount('contacts')->paginate(10);
-        }else{
+        } else {
             return Project::where('status', $request->filter)->orderBy('id', 'desc')->withCount('contacts')->paginate(10);
         }
     }
-    public function getSingle (Request $request){
+    public function getSingle(Request $request)
+    {
         return Project::where('id', $request->id)->with('contacts')->first();
     }
     public function add(Request $request)
@@ -96,11 +97,9 @@ class ProjectController extends Controller
 
             DB::commit();
 
-            
-
-           /* foreach($contacts as $contact){
+            foreach ($contacts as $contact) {
                 Mail::to($contact['email'])->send(new ProjectEdited($project, $project->getChanges()));
-            }*/
+            }
 
             return response($project, 201);
         } catch (\Throwable $th) {

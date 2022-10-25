@@ -50,7 +50,6 @@ export default {
         const contact = ref({})
         const route = useRoute()
 
-
         const getProject = async () => {
             try {
                 const res = await axios({
@@ -68,7 +67,6 @@ export default {
         }
 
         getProject()
-
 
         const addContact = () => {
             project.value.contacts.push(contact.value)
