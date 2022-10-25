@@ -32,9 +32,11 @@
                     <button @click="deleteProject(project.id, p)" type="button" class="btn btn-danger">Törlés</button>
                 </div>
             </div>
-
-
         </div>
+        <!-- pagination -->
+        <b-pagination v-model="currentPage" :total-rows="total" :per-page="10" aria-controls="my-table">
+        </b-pagination>
+        <!-- pagination -->
 
         <!-- Adding Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -88,7 +90,7 @@
 </template>
 
 <script>
-import { ref } from '@vue/reactivity'
+import { ref, watch} from 'vue'
 import axios from 'axios'
 export default {
     setup() {
@@ -128,19 +130,24 @@ export default {
 
         //get projects
 
-        const page = ref(1)
+        const currentPage = ref(1)
+        const total = ref(0)
         const projects = ref([])
+
+        watch(currentPage, () => {
+            getProjects()
+        })
 
         const getProjects = async () => {
             try {
                 const res = await axios({
                     method: 'get',
-                    url: '/get_projects',
+                    url: `/get_projects?page=${currentPage.value}`,
                 })
 
                 if (res.status == 200) {
                     projects.value = res.data.data
-                    page.value = res.data.page
+                    total.value = res.data.total
                 }
             }
             catch (e) {
@@ -176,8 +183,10 @@ export default {
             addContact,
             sendingProject,
             projects,
-            page,
+            currentPage,
             deleteProject,
+            total,
+            getProjects,
         }
 
     }
