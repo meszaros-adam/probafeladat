@@ -25,8 +25,7 @@
                     <span class="me-3">{{ contact.name }}</span>
                     <span>{{ contact.email }}</span>
                 </div>
-                <div @click="removeContact(c)">Törlés</div>
-
+                <button @click="removeContact(c)" type="button" class="btn btn-danger  btn-sm">Törlés</button>
             </div>
             <label for="contact-name" class="form-label">Név</label>
             <input v-model="contact.name" type="text" class="form-control" id="contact-name">

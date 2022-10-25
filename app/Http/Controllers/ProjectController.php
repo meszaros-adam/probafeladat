@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ProjectEdited;
 use App\Models\Contact;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class ProjectController extends Controller
 {
@@ -70,7 +72,9 @@ class ProjectController extends Controller
         try {
             DB::beginTransaction();
 
-            $project = Project::where('id', $request->id)->update([
+            $project = Project::find($request->id);
+
+            $project->update([
                 'name' => $request->name,
                 'description' => $request->description,
                 'status' => $request->status,
@@ -91,6 +95,12 @@ class ProjectController extends Controller
             Contact::insert($contacts);
 
             DB::commit();
+
+            
+
+           /* foreach($contacts as $contact){
+                Mail::to($contact['email'])->send(new ProjectEdited($project, $project->getChanges()));
+            }*/
 
             return response($project, 201);
         } catch (\Throwable $th) {
