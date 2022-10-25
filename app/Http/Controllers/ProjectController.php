@@ -17,7 +17,9 @@ class ProjectController extends Controller
         }else{
             return Project::where('status', $request->filter)->orderBy('id', 'desc')->withCount('contacts')->paginate(10);
         }
-            
+    }
+    public function getSingle (Request $request){
+        return Project::where('id', $request->id)->with('contacts')->first();
     }
     public function add(Request $request)
     {
