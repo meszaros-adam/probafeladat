@@ -7,8 +7,8 @@
             </button>
             <div>
                 <div>Szűrés: </div>
-                <select v-model="project.status" class="form-select">
-                    <option selected>Státusz kiválasztása</option>
+                <select v-model="filterProjects" class="form-select">
+                    <option value="null">Nincs</option>
                     <option value="waiting-for-development">Fejlesztésre vár</option>
                     <option value="in-progress">Folyamatban</option>
                     <option value="ready">Kész</option>
@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import { ref, watch} from 'vue'
+import { ref, watch } from 'vue'
 import axios from 'axios'
 export default {
     setup() {
@@ -133,8 +133,13 @@ export default {
         const currentPage = ref(1)
         const total = ref(0)
         const projects = ref([])
+        const filterProjects = ref(null)
 
         watch(currentPage, () => {
+            getProjects()
+        })
+
+        watch(filterProjects, () => {
             getProjects()
         })
 
@@ -142,7 +147,7 @@ export default {
             try {
                 const res = await axios({
                     method: 'get',
-                    url: `/get_projects?page=${currentPage.value}`,
+                    url: `/get_projects?page=${currentPage.value}&filter=${filterProjects.value}`,
                 })
 
                 if (res.status == 200) {
@@ -187,6 +192,7 @@ export default {
             deleteProject,
             total,
             getProjects,
+            filterProjects,
         }
 
     }

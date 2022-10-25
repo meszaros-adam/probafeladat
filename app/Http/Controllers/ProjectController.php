@@ -10,13 +10,14 @@ use Illuminate\Support\Facades\DB;
 class ProjectController extends Controller
 {
 
-    public function get()
+    public function get(Request $request)
     {
-        return Project::orderBy('id', 'desc')->withCount('contacts')->paginate(10);
-    }
-    public function getByStatus(Request $request)
-    {
-        return Project::where('status', $request->status)->withCount('contacts')->orderBy('id', 'desc')->paginate(10);
+        if ($request->filter == "null"){
+            return Project::orderBy('id', 'desc')->withCount('contacts')->paginate(10);
+        }else{
+            return Project::where('status', $request->filter)->orderBy('id', 'desc')->withCount('contacts')->paginate(10);
+        }
+            
     }
     public function add(Request $request)
     {
