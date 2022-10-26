@@ -55,7 +55,7 @@ class ProjectController extends Controller
 
             DB::commit();
 
-            return response($project, 201);
+            return response($project->loadCount('contacts'), 201);
         } catch (\Throwable $th) {
             DB::rollback();
             return response($th, 500);
