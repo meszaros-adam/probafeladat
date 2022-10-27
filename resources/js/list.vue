@@ -44,7 +44,7 @@
         <!-- Adding Modal -->
 
 
-        <b-modal v-model="addingModal" title="Projekt létrewhozása!" hide-footer>
+        <b-modal v-model="addingModal" title="Projekt létrehozása!" hide-footer>
             <div>
                 <div class="mb-3">
                     <label for="name" class="form-label">Név:</label>
@@ -63,10 +63,11 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <div class="mb-3">Kapcsolattartó hozzáadása</div>
-                    <div class="mb-3" v-for="(contact, c) in project.contacts" :key="c">
+                    <div class="mb-3 ">Kapcsolattartó hozzáadása</div>
+                    <div class="mb-3 d-flex justify-content-between" v-for="(contact, c) in project.contacts" :key="c">
                         <span class="me-3">{{ contact.name }}</span>
                         <span>{{ contact.email }}</span>
+                        <button @click="removeContact(c)" type="button" class="btn btn-danger  btn-sm">Törlés</button>
 
                     </div>
                     <label for="contact-name" class="form-label">Név</label>
@@ -103,7 +104,7 @@ export default {
 
         const contact = ref({
             name: '',
-            email: ''
+            email: '',
         })
 
         const addContact = () => {
@@ -114,6 +115,11 @@ export default {
                 email: ''
             }
         }
+
+        const removeContact = (index) => {
+            project.value.contacts.splice(index, 1)
+        }
+
 
         const sendingProject = async () => {
             try {
@@ -206,6 +212,7 @@ export default {
             getProjects,
             filterProjects,
             addingModal,
+            removeContact,
         }
 
     }
