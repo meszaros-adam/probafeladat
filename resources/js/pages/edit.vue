@@ -26,9 +26,7 @@
                     <span class="me-3">{{ contact.name }}</span>
                     <span>{{ contact.email }}</span>
                 </div>
-                <button @click="removeContact(c)" type="button" class="btn btn-danger  btn-sm" title="Törlés">
-                    <i class="bi bi-trash"></i>
-                </button>
+                <deleteButtonVue @click="removeContact(c)"></deleteButtonVue>
             </div>
         </div>
         <div class="mb-3  border-top">
@@ -52,7 +50,9 @@
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { callApi } from '../common/common'
+import deleteButtonVue from '../partials/deleteButton.vue'
 export default {
+    components: { deleteButtonVue },
     setup() {
         const project = ref(null)
         const contact = ref({})

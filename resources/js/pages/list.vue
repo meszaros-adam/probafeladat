@@ -26,7 +26,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h3>Név: {{ project.name }}</h3>
-                        <div>Leírás: </div>
+                        <div>Leírás: {{ project.description }}</div>
                         <div>Státusz: {{ project.status }}</div>
                         <div>Kapcsolattartók száma: {{ project.contacts_count }}</div>
                     </div>
@@ -36,10 +36,7 @@
                                 <i class="bi bi-pencil"></i>
                             </button>
                         </router-link>
-                        <button title="Törlés" @click="deleteProject(project.id, p)" type="button"
-                            class="btn btn-danger"><i class="bi bi-trash"></i>
-                        </button>
-
+                        <deleteButtonVue @click="deleteProject(project.id, p)"></deleteButtonVue>
                     </div>
                 </div>
             </div>
@@ -73,12 +70,11 @@
                 </div>
                 <div class="mb-3 border-top">
                     <div class="mb-3">Kapcsolattartók listája: </div>
-                    <div class="mb-3 d-flex justify-content-between alignt-items-center bg-primary p-1 rounded"
+                    <div class="mb-3 d-flex justify-content-between align-items-center bg-primary p-1 rounded"
                         v-for="(contact, c) in project.contacts" :key="c">
                         <span class="me-3">{{ contact.name }}</span>
                         <span>{{ contact.email }}</span>
-                        <button @click="removeContact(c)" type="button" class="btn btn-danger  btn-sm">Törlés</button>
-
+                        <deleteButtonVue @click="removeContact(c)"></deleteButtonVue>
                     </div>
                 </div>
                 <div class="mb-3 border-top">
@@ -105,7 +101,9 @@
 <script>
 import { ref, watch } from 'vue'
 import { callApi } from '../common/common.js'
+import deleteButtonVue from '../partials/deleteButton.vue'
 export default {
+    components:{deleteButtonVue},
     setup() {
         //adding project
         const addingModal = ref(false)
