@@ -6,7 +6,7 @@
                 Project hozzáadása!
             </button>
             <div>
-                <div>Szűrés: </div>
+                <div class="text-white">Szűrés: </div>
                 <select v-model="filterProjects" class="form-select">
                     <option value="null">Nincs</option>
                     <option value="waiting-for-development">Fejlesztésre vár</option>
@@ -89,7 +89,7 @@
 
 <script>
 import { ref, watch } from 'vue'
-import axios from 'axios'
+import { callApi } from '../common/common.js'
 export default {
     setup() {
         //adding project
@@ -120,30 +120,20 @@ export default {
             project.value.contacts.splice(index, 1)
         }
 
-
         const sendingProject = async () => {
-            try {
-                const res = await axios({
-                    method: 'post',
-                    url: '/create_project',
-                    data: project.value,
-                })
+            const res = await callApi('post', '/create_project', project.value)
 
-                if (res.status == 201) {
+            if (res.status == 201) {
 
-                    projects.value.unshift(res.data)
-                    addingModal.value = false
+                projects.value.unshift(res.data)
+                addingModal.value = false
 
-                    project.value = {
-                        name: '',
-                        description: '',
-                        status: 'waiting-for-development',
-                        contacts: [],
-                    }
+                project.value = {
+                    name: '',
+                    description: '',
+                    status: 'waiting-for-development',
+                    contacts: [],
                 }
-            }
-            catch (e) {
-                return e.response
             }
         }
 
@@ -163,19 +153,11 @@ export default {
         })
 
         const getProjects = async () => {
-            try {
-                const res = await axios({
-                    method: 'get',
-                    url: `/get_projects?page=${currentPage.value}&filter=${filterProjects.value}`,
-                })
+            const res = await callApi('get', `/get_projects?page=${currentPage.value}&filter=${filterProjects.value}`)
 
-                if (res.status == 200) {
-                    projects.value = res.data.data
-                    total.value = res.data.total
-                }
-            }
-            catch (e) {
-                return e.response
+            if (res.status == 200) {
+                projects.value = res.data.data
+                total.value = res.data.total
             }
         }
 
@@ -184,19 +166,10 @@ export default {
         //delete Project
 
         const deleteProject = async (id, index) => {
-            try {
-                const res = await axios({
-                    method: 'post',
-                    url: '/delete_project',
-                    data: { id: id }
-                })
+            const res = await callApi('post', '/delete_project', { id: id })
 
-                if (res.status == 200) {
-                    projects.value.splice(index, 1)
-                }
-            }
-            catch (e) {
-                return e.response
+            if (res.status == 200) {
+                projects.value.splice(index, 1)
             }
         }
 
@@ -214,7 +187,6 @@ export default {
             addingModal,
             removeContact,
         }
-
     }
 }
 </script>

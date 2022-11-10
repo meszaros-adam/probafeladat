@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import edit from './edit.vue'
-import list from './list.vue'
+import edit from './pages/edit.vue'
+import list from './pages/list.vue'
 
 const routes = [
     {

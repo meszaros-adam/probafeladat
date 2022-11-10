@@ -1,5 +1,5 @@
 <template>
-    <div v-if="project" class="container bg-secondary p-5">
+    <div v-if="project" class="container bg-secondary my-5 p-3">
         <h1>Project szerkesztése: </h1>
         <div class="mb-3">
             <label for="name" class="form-label">Név:</label>
@@ -37,13 +37,12 @@
         </div>
         <button @click="edit" type="button" class="btn btn-primary">Szerkesztés</button>
     </div>
-
-
 </template>
 
 <script>
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { callApi } from '../common/common'
 export default {
     setup() {
         const project = ref(null)
@@ -51,18 +50,10 @@ export default {
         const route = useRoute()
 
         const getProject = async () => {
-            try {
-                const res = await axios({
-                    method: 'get',
-                    url: `/get_single_project?id=${route.params.id}`,
-                })
+            const res = await callApi('get', `/get_single_project?id=${route.params.id}`,)
 
-                if (res.status == 200) {
-                    project.value = res.data
-                }
-            }
-            catch (e) {
-                return e.response
+            if (res.status == 200) {
+                project.value = res.data
             }
         }
 
@@ -82,19 +73,10 @@ export default {
         }
 
         const edit = async () => {
-            try {
-                const res = await axios({
-                    method: 'post',
-                    url: `/edit_project?id=${project.value.id}`,
-                    data: project.value
-                })
+            const res = await callApi('post', `/edit_project?id=${project.value.id}`, project.value)
 
-                if (res.status == 200) {
-                    project.value = res.data
-                }
-            }
-            catch (e) {
-                return e.response
+            if (res.status == 200) {
+                project.value = res.data
             }
         }
 
