@@ -1,49 +1,58 @@
 <template>
-    <div class="container my-2">
-        <div class="d-flex justify-content-between">
+    <div>
+        <div class="d-flex container rounded py-3 bg-dark justify-content-between align-items-center">
             <!-- Button Adding trigger modal -->
-            <button type="button" class="btn btn-primary" @click="addingModal = true">
-                Project hozzáadása!
-            </button>
             <div>
-                <div class="text-white">Szűrés: </div>
-                <select v-model="filterProjects" class="form-select">
-                    <option value="null">Nincs</option>
-                    <option value="waiting-for-development">Fejlesztésre vár</option>
-                    <option value="in-progress">Folyamatban</option>
-                    <option value="ready">Kész</option>
-                </select>
+                <button type="button" class="btn btn-primary" @click="addingModal = true">
+                    <i class="bi bi-plus-lg"></i>
+                    <span>Project hozzáadása</span>
+                </button>
             </div>
-        </div>
-
-
-        <div v-for="(project, p) in projects" :key="p" class="bg-primary rounded p-2 my-3">
-            <div class="d-flex justify-content-between">
-                <div>Név:{{ project.name }}</div>
-                <div>Kapcsolattartók száma:{{ project.contacts_count }}</div>
-            </div>
-            <div class="d-flex justify-content-between">
+            <div class="d-flex align-items-center">
+                <div class="text-white me-3">Szűrés: </div>
                 <div>
-                    <div>Leírás: </div>
-                    <div>{{ project.status }}</div>
-                </div>
-                <div>
-                    <router-link :to="{ name: 'edit', params: { id: project.id } }">
-                        <button type="button" class="btn btn-warning me-2">Szerkesztés</button>
-                    </router-link>
-
-                    <button @click="deleteProject(project.id, p)" type="button" class="btn btn-danger">Törlés</button>
+                    <select v-model="filterProjects" class="form-select">
+                        <option value="null">Nincs</option>
+                        <option value="waiting-for-development">Fejlesztésre vár</option>
+                        <option value="in-progress">Folyamatban</option>
+                        <option value="ready">Kész</option>
+                    </select>
                 </div>
             </div>
         </div>
-        <!-- pagination -->
-        <b-pagination v-model="currentPage" :total-rows="total" :per-page="10" aria-controls="my-table">
-        </b-pagination>
-        <!-- pagination -->
+
+        <div class="container">
+            <div v-for="(project, p) in projects" :key="p" class="bg-primary text-white rounded p-2 my-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h3>Név: {{ project.name }}</h3>
+                        <div>Leírás: </div>
+                        <div>Státusz: {{ project.status }}</div>
+                        <div>Kapcsolattartók száma: {{ project.contacts_count }}</div>
+                    </div>
+                    <div>
+                        <router-link :to="{ name: 'edit', params: { id: project.id } }">
+                            <button title="Szerkesztés" type="button" class="btn btn-warning me-2">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                        </router-link>
+                        <button title="Törlés" @click="deleteProject(project.id, p)" type="button"
+                            class="btn btn-danger"><i class="bi bi-trash"></i>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+            <!-- pagination -->
+            <b-pagination v-model="currentPage" :total-rows="total" :per-page="10" aria-controls="my-table"
+                align="center">
+            </b-pagination>
+            <!-- pagination -->
+        </div>
+
+
 
         <!-- Adding Modal -->
-
-
         <b-modal v-model="addingModal" title="Projekt létrehozása!" hide-footer>
             <div>
                 <div class="mb-3">
@@ -62,22 +71,28 @@
                         <option value="ready">Kész</option>
                     </select>
                 </div>
-                <div class="mb-3">
-                    <div class="mb-3 ">Kapcsolattartó hozzáadása</div>
-                    <div class="mb-3 d-flex justify-content-between" v-for="(contact, c) in project.contacts" :key="c">
+                <div class="mb-3 border-top">
+                    <div class="mb-3">Kapcsolattartók listája: </div>
+                    <div class="mb-3 d-flex justify-content-between alignt-items-center bg-primary p-1 rounded"
+                        v-for="(contact, c) in project.contacts" :key="c">
                         <span class="me-3">{{ contact.name }}</span>
                         <span>{{ contact.email }}</span>
                         <button @click="removeContact(c)" type="button" class="btn btn-danger  btn-sm">Törlés</button>
 
                     </div>
+                </div>
+                <div class="mb-3 border-top">
                     <label for="contact-name" class="form-label">Név</label>
                     <input v-model="contact.name" type="text" class="form-control" id="contact-name">
                     <label for="contact-email" class="form-label">Email</label>
                     <input v-model="contact.email" type="email" class="form-control" id="contact-email">
-                    <button @click="addContact" type="button" class="btn btn-primary mt-3">Kapcsolattartó
-                        hozzáadása:
+                    <button @click="addContact" type="button" class="btn btn-primary mt-3">
+                        <i class="bi bi-plus-lg"></i>
+                        <span>Kapcsolattartó hozzáadása</span>
                     </button>
                 </div>
+
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Mégse</button>
@@ -146,6 +161,7 @@ export default {
 
         watch(currentPage, () => {
             getProjects()
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         })
 
         watch(filterProjects, () => {
