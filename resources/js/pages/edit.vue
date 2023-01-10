@@ -1,5 +1,5 @@
 <template>
-    <div v-if="project" class="container bg-dark text-white my-5 p-3">
+    <div v-if="project" class="container bg-dark text-white my-5 p-3 ">
         <h1>Project szerkesztése: </h1>
         <div class="mb-3">
             <label for="name" class="form-label">Név:</label>
@@ -20,7 +20,7 @@
         </div>
         <div class="mb-3  border-top">
             <div class="mb-3">Kapcsolattartók:</div>
-            <div class="mb-3 bg-primary p-1 rounded d-flex text-white justify-content-between"
+            <div class="mb-3 bg-primary p-1 rounded d-flex text-white justify-content-between align-items-center"
                 v-for="(contact, c) in project.contacts" :key="c">
                 <div>
                     <span class="me-3">{{ contact.name }}</span>

@@ -22,7 +22,7 @@
         </div>
 
         <div class="container">
-            <div v-for="(project, p) in projects" :key="p" class="bg-primary text-white rounded p-2 my-3">
+            <div v-for="(project, p) in projects" :key="p" class="bg-dark text-white rounded p-2 my-3 project">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h3>Név: {{ project.name }}</h3>
@@ -103,7 +103,7 @@ import { ref, watch } from 'vue'
 import { callApi } from '../common/common.js'
 import deleteButtonVue from '../partials/deleteButton.vue'
 export default {
-    components:{deleteButtonVue},
+    components: { deleteButtonVue },
     setup() {
         //adding project
         const addingModal = ref(false)

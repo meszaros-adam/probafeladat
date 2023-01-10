@@ -1,6 +1,8 @@
 body{
     background-color: #372948;
-}
-.navbar-brand{
     font-family: cursive;
+    min-height: 100vh;
+}
+.project{
+    border-left: 10px solid #FED766;
 }
