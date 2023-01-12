@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post('/register', [App\Http\Controllers\UserController::class, 'register']);
+Route::post('/login', [App\Http\Controllers\UserController::class, 'login']);
+
+
 Route::get('/get_projects', [App\Http\Controllers\ProjectController::class, 'get']);
 Route::get('/get_single_project', [App\Http\Controllers\ProjectController::class, 'getSingle']);
 Route::post('/create_project', [App\Http\Controllers\ProjectController::class, 'add']);
