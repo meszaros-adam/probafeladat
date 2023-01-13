@@ -38,4 +38,15 @@ class UserController extends Controller
             return response('Login failed!', 401);
         }
     }
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return response('Successful logout!', 200);
+    }
 }

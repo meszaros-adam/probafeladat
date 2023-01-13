@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [App\Http\Controllers\UserController::class, 'register']);
 Route::post('/login', [App\Http\Controllers\UserController::class, 'login']);
+Route::get('/logout', [App\Http\Controllers\UserController::class, 'logout']);
 
 
 Route::get('/get_projects', [App\Http\Controllers\ProjectController::class, 'get']);

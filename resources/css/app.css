@@ -1,8 +1,9 @@
-body{
-    background-color: #372948;
-    font-family: cursive;
-    min-height: 100vh;
+body {
+    background-color: #372948 !important;
+    font-family: cursive !important;
+    min-height: 100vh !important;
 }
-.project{
-    border-left: 10px solid #FED766;
+
+.project {
+    border-left: 10px solid #FED766 !important;
 }
