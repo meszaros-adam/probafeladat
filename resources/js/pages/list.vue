@@ -3,7 +3,7 @@
         <div class="d-flex container rounded py-3 bg-dark justify-content-between align-items-center">
             <!-- Button Adding trigger modal -->
             <div>
-                <button type="button" class="btn btn-primary" @click="addingModal = true">
+                <button class="button" @click="addingModal = true">
                     <i class="bi bi-plus-lg"></i>
                     <span>Project hozzáadása</span>
                 </button>
@@ -82,7 +82,7 @@
                     <input v-model="contact.name" type="text" class="form-control" id="contact-name">
                     <label for="contact-email" class="form-label">Email</label>
                     <input v-model="contact.email" type="email" class="form-control" id="contact-email">
-                    <button @click="addContact" type="button" class="btn btn-primary mt-3">
+                    <button @click="addContact" type="button" class="button mt-3">
                         <i class="bi bi-plus-lg"></i>
                         <span>Kapcsolattartó hozzáadása</span>
                     </button>
@@ -91,8 +91,8 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Mégse</button>
-                <button @click="sendingProject" type="button" class="btn btn-primary">Project mentése!</button>
+                <button type="button" class="button secondary" data-bs-dismiss="modal">Mégse</button>
+                <button @click="sendingProject" type="button" class="button">Projekt mentése!</button>
             </div>
         </b-modal>
     </div>

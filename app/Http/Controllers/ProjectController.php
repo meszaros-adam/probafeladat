@@ -6,12 +6,12 @@ use App\Mail\ProjectEdited;
 use App\Models\Contact;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class ProjectController extends Controller
 {
-
     public function get(Request $request)
     {
         if ($request->filter == "null") {
@@ -39,6 +39,7 @@ class ProjectController extends Controller
                 'name' => $request->name,
                 'description' => $request->description,
                 'status' => $request->status,
+                'user_id' => Auth::user()->id,
             ]);
 
             $contacts = [];

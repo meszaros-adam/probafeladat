@@ -56,5 +56,43 @@ export default {
 </script>
 
 <style>
+body {
+    background-color: #372948;
+    font-family: cursive;
+    min-height: 100vh;
+}
 
+.project {
+    border-left: 10px solid #FED766;
+}
+
+.auth .container {
+    background-color: whitesmoke;
+    border: 2px solid black;
+}
+
+.auth h1 {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 5px dashed #372948;
+}
+
+.button {
+    background-color: #372948;
+    color: whitesmoke;
+    padding: 0.5rem;
+}
+
+.button:hover {
+    background-color: #674f85
+}
+
+.button.secondary {
+    background-color: grey;
+}
+
+.button.secondary:hover {
+    background-color: whitesmoke;
+    color: grey;
+}
 </style>

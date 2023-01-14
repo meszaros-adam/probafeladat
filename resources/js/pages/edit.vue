@@ -34,13 +34,14 @@
             <input v-model="contact.name" type="text" class="form-control" id="contact-name">
             <label for="contact-email" class="form-label">Email</label>
             <input v-model="contact.email" type="email" class="form-control" id="contact-email">
-            <button @click="addContact" type="button" class="btn btn-primary mt-3">
+            <button @click="addContact" type="button" class="button mt-3">
                 <i class="bi bi-plus-lg"></i>
                 <span>Kapcsolattartó hozzáadása</span>
             </button>
         </div>
+        <hr>
         <div class="text-end">
-            <button @click="edit" type="button" class="btn btn-primary">Mentés</button>
+            <button @click="edit" type="button" class="button">Mentés</button>
         </div>
 
     </div>
