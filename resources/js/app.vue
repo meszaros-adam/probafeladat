@@ -1,6 +1,6 @@
 <template>
     <!-- NAV  -->
-    <nav class="navbar bg-dark">
+    <nav class="navbar">
         <div class="container text-white">
             <router-link to="/" class="navbar-brand text-white mx-auto">
                 Projektkezelő!
@@ -56,14 +56,23 @@ export default {
 </script>
 
 <style>
+:root {
+    --primaryColor: #372948;
+}
+
 body {
-    background-color: #372948;
+    background-color: #2A2D43;
     font-family: cursive;
     min-height: 100vh;
 }
 
+.navbar {
+    background-color: var(--primaryColor);
+    border-bottom: 2px solid black;
+}
+
 .project {
-    border-left: 10px solid #FED766;
+    border-left: 10px solid var(--primaryColor);
 }
 
 .auth .container {
@@ -74,11 +83,11 @@ body {
 .auth h1 {
     margin-bottom: 2rem;
     padding-bottom: 1rem;
-    border-bottom: 5px dashed #372948;
+    border-bottom: 5px dashed var(--primaryColor);
 }
 
 .button {
-    background-color: #372948;
+    background-color: var(--primaryColor);
     color: whitesmoke;
     padding: 0.5rem;
 }
@@ -94,5 +103,14 @@ body {
 .button.secondary:hover {
     background-color: whitesmoke;
     color: grey;
+}
+
+.active>.page-link {
+    background-color: var(--primaryColor);
+    border-color: black;
+}
+
+.btn{
+    border-radius: 0;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="d-flex container rounded py-3 bg-dark justify-content-between align-items-center">
+        <div class="d-flex container py-3 bg-dark justify-content-between align-items-center">
             <!-- Button Adding trigger modal -->
             <div>
                 <button class="button" @click="addingModal = true">
@@ -22,7 +22,7 @@
         </div>
 
         <div class="container">
-            <div v-for="(project, p) in projects" :key="p" class="bg-dark text-white rounded p-2 my-3 project">
+            <div v-for="(project, p) in projects" :key="p" class="bg-dark text-white p-2 my-3 project">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h3>Név: {{ project.name }}</h3>
@@ -101,10 +101,13 @@
 <script>
 import { ref, watch } from 'vue'
 import { callApi } from '../common/common.js'
+import { useToast } from "vue-toastification";
 import deleteButtonVue from '../partials/deleteButton.vue'
 export default {
     components: { deleteButtonVue },
     setup() {
+        const toast = useToast();
+
         //adding project
         const addingModal = ref(false)
 
@@ -147,6 +150,9 @@ export default {
                     status: 'waiting-for-development',
                     contacts: [],
                 }
+                toast.success("Projekt sikeresen létrehozva!");
+            }else{
+                toast.success('Projekt létrehozása sikertelen!');
             }
         }
 
