@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-async function callApi(method, url, data) {
+const callApi = async (method, url, data) => {
     try {
         return await axios({
             method: method,
@@ -13,4 +13,9 @@ async function callApi(method, url, data) {
     }
 }
 
-export { callApi }
+const validateEmail = (email) => {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
+
+export { callApi, validateEmail}

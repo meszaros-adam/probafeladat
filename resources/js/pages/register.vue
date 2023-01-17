@@ -28,9 +28,12 @@
 import { ref } from '@vue/reactivity'
 import { callApi } from '../common/common.js'
 import { useRouter } from 'vue-router';
+import { useToast } from 'vue-toastification';
+import { validateEmail } from '../common/common.js';
 export default {
     setup() {
         const router = useRouter();
+        const toast = useToast();
 
         const registerData = ref({
             fullName: '',
@@ -40,12 +43,19 @@ export default {
         })
 
         const register = async () => {
+
+            if (validateEmail(registerData.value.email.trim()) == false) return toast.warning('Érvényes email címet kell megadni!')
+            if (registerData.value.fullName.trim().length < 5) return toast.warning('A név legalább 4 karakter legyen!')
+            if (registerData.value.password.trim().length < 7) return toast.warning('A jelszó legalább 6 karakter kell legyen!')
+            if (registerData.value.password.trim() != registerData.value.password_confirmation.trim()) return toast.warning('A jelszak nem egyeznek')
+
             const res = await callApi('post', '/register', registerData.value)
 
             if (res.status == 201) {
                 router.push('/login')
+                toast.success('Sikeres regisztráció!')
             } else {
-                console.log(res.data)
+                toast.error('A regisztráció sikertelen!')
             }
         }
 
