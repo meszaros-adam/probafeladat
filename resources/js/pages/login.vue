@@ -22,20 +22,28 @@
 <script>
 import { ref } from '@vue/reactivity';
 import { callApi } from '../common/common';
+import { useToast } from 'vue-toastification';
+import { validateEmail } from '../common/common';
 export default {
     setup() {
+        const toast = useToast()
+
         const loginData = ref({
             email: '',
             password: '',
             remember: false,
         })
+
         const login = async () => {
+            if (validateEmail(loginData.value.email.trim()) == false) return toast.warning('Érvényes email címet kell megadni!')
+            if (loginData.value.password.trim().length < 6) return toast.warning('A jelszó legalább 6 karakter kell legyen!')
+
             const res = await callApi('post', '/login', loginData.value)
 
             if (res.status == 200) {
                 window.location = '/';
             } else {
-                console.log('login failed')
+                toast.error('Bejelentkezés sikertelen!')
             }
         }
 
