@@ -35,7 +35,7 @@ export default {
         })
 
         const login = async () => {
-            if (validateEmail(loginData.value.email.trim()) == false) return toast.warning('Érvényes email címet kell megadni!')
+            if (!validateEmail(loginData.value.email)) return toast.warning('Érvényes email címet kell megadni!')
             if (loginData.value.password.trim().length < 6) return toast.warning('A jelszó legalább 6 karakter kell legyen!')
 
             const res = await callApi('post', '/login', loginData.value)

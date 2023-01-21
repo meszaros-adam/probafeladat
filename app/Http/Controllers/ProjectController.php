@@ -45,6 +45,7 @@ class ProjectController extends Controller
             $contacts = [];
 
             foreach ($request->contacts as $contact) {
+
                 array_push($contacts, [
                     'name' => $contact['name'],
                     'email' => $contact['email'],

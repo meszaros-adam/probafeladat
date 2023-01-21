@@ -102,6 +102,7 @@
 import { ref, watch } from 'vue'
 import { callApi } from '../common/common.js'
 import { useToast } from "vue-toastification";
+import { validateEmail } from '../common/common.js';
 import deleteButtonVue from '../partials/deleteButton.vue'
 export default {
     components: { deleteButtonVue },
@@ -111,25 +112,32 @@ export default {
         //adding project
         const addingModal = ref(false)
 
-        const project = ref({
-            name: '',
-            description: '',
-            status: 'waiting-for-development',
-            contacts: [],
-        })
+        const projectInitialValue = () => {
+            return {
+                name: '',
+                description: '',
+                status: 'waiting-for-development',
+                contacts: [],
+            }
+        }
 
-        const contact = ref({
-            name: '',
-            email: '',
-        })
+        const project = ref(projectInitialValue())
+
+        const contactInitialValue = () => {
+            return {
+                name: '',
+                email: '',
+            }
+        }
+
+        const contact = ref(contactInitialValue())
 
         const addContact = () => {
+            if (!validateEmail(contact.value.email)) return toast.error('Érvényes email címet kell megadni!')
+
             project.value.contacts.push(contact.value)
 
-            contact.value = {
-                name: '',
-                email: ''
-            }
+            contact.value = contactInitialValue()
         }
 
         const removeContact = (index) => {
@@ -137,6 +145,7 @@ export default {
         }
 
         const sendingProject = async () => {
+
             const res = await callApi('post', '/create_project', project.value)
 
             if (res.status == 201) {
@@ -144,15 +153,11 @@ export default {
                 projects.value.unshift(res.data)
                 addingModal.value = false
 
-                project.value = {
-                    name: '',
-                    description: '',
-                    status: 'waiting-for-development',
-                    contacts: [],
-                }
+                project.value = projectInitialValue()
+
                 toast.success("Projekt sikeresen létrehozva!");
-            }else{
-                toast.success('Projekt létrehozása sikertelen!');
+            } else {
+                toast.error('Projekt létrehozása sikertelen!');
             }
         }
 
