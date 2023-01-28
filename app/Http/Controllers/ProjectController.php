@@ -117,4 +117,7 @@ class ProjectController extends Controller
 
         Project::where('id', $request->id)->delete();
     }
+    public function getMyProjects(){
+        return Project::where('user_id', Auth::user()->id)->paginate(10);
+    }
 }

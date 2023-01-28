@@ -22,6 +22,7 @@ Route::get('/get_single_project', [App\Http\Controllers\ProjectController::class
 Route::post('/create_project', [App\Http\Controllers\ProjectController::class, 'add']);
 Route::post('/edit_project', [App\Http\Controllers\ProjectController::class, 'edit']);
 Route::post('/delete_project', [App\Http\Controllers\ProjectController::class, 'delete']);
+Route::get('/get-my-projects', [App\Http\Controllers\ProjectController::class, 'getMyProjects']);
 
 Route::fallback(function () {
     return view('welcome');

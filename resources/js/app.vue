@@ -12,6 +12,7 @@
                         {{ user.fullName }}
                     </button>
                     <ul class="dropdown-menu m-0">
+                        <li><router-link to="/my-projects" class="dropdown-item">Projektjeim</router-link ></li>
                         <li @click="logout"><a class="dropdown-item" href="#">Kijelentkezés</a></li>
                     </ul>
                 </div>
@@ -56,13 +57,16 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap');
+
 :root {
     --primaryColor: #372948;
 }
 
 body {
-    background-color: #2A2D43;
-    font-family: cursive;
+    background-color: #0f1108;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 900;
     min-height: 100vh;
 }
 
@@ -73,6 +77,11 @@ body {
 
 .project {
     border-left: 10px solid var(--primaryColor);
+    background-color: #212529;
+    padding: 1rem;
+    margin: 3rem 0rem;
+    color: whitesmoke;
+
 }
 
 .auth .container {
@@ -110,7 +119,20 @@ body {
     border-color: black;
 }
 
-.btn{
+.btn {
     border-radius: 0;
+}
+
+.modal-content {
+    background-color: whitesmoke;
+    border-radius: 0;
+}
+
+.form-select {
+    border-radius: 0;
+}
+
+.modal-title{
+    font-weight: bolder;
 }
 </style>
