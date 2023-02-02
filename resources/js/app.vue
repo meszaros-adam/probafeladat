@@ -1,7 +1,7 @@
 <template>
     <!-- NAV  -->
     <nav class="navbar">
-        <div class="container text-white">
+        <div class="container d-flex justify-content-center text-white">
             <router-link to="/" class="navbar-brand text-white mx-auto">
                 Projektkezelő!
             </router-link>
@@ -12,7 +12,7 @@
                         {{ user.fullName }}
                     </button>
                     <ul class="dropdown-menu m-0">
-                        <li><router-link to="/my-projects" class="dropdown-item">Projektjeim</router-link ></li>
+                        <li><router-link to="/my-projects" class="dropdown-item">Projektjeim</router-link></li>
                         <li @click="logout"><a class="dropdown-item" href="#">Kijelentkezés</a></li>
                     </ul>
                 </div>
@@ -128,11 +128,20 @@ body {
     border-radius: 0;
 }
 
-.form-select {
+.form-select,
+.form-select option {
+    border-radius: 0;
+    font-weight: 900;
+}
+
+.form-control {
     border-radius: 0;
 }
 
-.modal-title{
-    font-weight: bolder;
+.btn,
+.modal-title,
+.dropdown-item,
+.form-control {
+    font-weight: 900;
 }
 </style>
