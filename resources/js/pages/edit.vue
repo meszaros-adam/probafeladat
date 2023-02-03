@@ -20,7 +20,7 @@
         </div>
         <div class="mb-3  border-top">
             <div class="mb-3">Kapcsolattartók:</div>
-            <div class="mb-3 bg-primary p-1 rounded d-flex text-white justify-content-between align-items-center"
+            <div class="mb-3 bg-primary p-1 d-flex text-white justify-content-between align-items-center"
                 v-for="(contact, c) in project.contacts" :key="c">
                 <div>
                     <span class="me-3">{{ contact.name }}</span>

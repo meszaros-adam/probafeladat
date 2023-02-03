@@ -11,13 +11,13 @@
                     <div>Létrehozva: {{ project.created_at }}</div>
                     <div>Frissítve: {{ project.updated_at }}</div>
                 </div>
-                <div>
-                    <router-link :to="{ name: 'edit', params: { id: project.id } }">
-                        <button title="Szerkesztés" type="button" class="btn btn-warning me-2">
+                <div class="d-flex flex-column">
+                    <router-link :to="{ name: 'edit', params: { id: project.id } }" class="mb-2">
+                        <button title="Szerkesztés" type="button" class="btn btn-warning">
                             <i class="bi bi-pencil"></i>
                         </button>
                     </router-link>
-                    <deleteButtonVue @click="deleteProject(project.id, p)"></deleteButtonVue>
+                    <deleteButtonVue @click="showDeleteModal(p, project.id)"></deleteButtonVue>
                 </div>
             </div>
         </div>
@@ -66,6 +66,17 @@
                 <button @click="sendingProject" type="button" class="button">Projekt mentése!</button>
             </div>
         </b-modal>
+        <!-- Adding Modal -->
+
+        <!-- Delete Modal -->
+        <b-modal v-model="deleteModal" title="Projekt törlése" hide-footer>
+            <h1>Biztosan törölni akarod a projektet?</h1>
+            <div class="modal-footer">
+                <button type="button" class="button secondary" data-bs-dismiss="modal">Mégse</button>
+                <button @click="deleteProject" type="button" class="button">Projekt Törlése!</button>
+            </div>
+        </b-modal>
+        <!-- Delete Modal -->
     </div>
 
 </template>
@@ -147,12 +158,27 @@ export default {
 
         //delete Project
 
-        const deleteProject = async (id, index) => {
-            const res = await callApi('post', '/delete_project', { id: id })
+        const deleteModal = ref(false)
+
+        const deleteIndex = ref(null);
+        const deleteId = ref(null);
+
+        const showDeleteModal = (index, id) => {
+            deleteIndex.value = index
+            deleteId.value = id
+            deleteModal.value = true;
+        }
+
+        const deleteProject = async () => {
+            const res = await callApi('post', '/delete_project', { id: deleteId.value })
 
             if (res.status == 200) {
-                projects.value.splice(index, 1)
+                projects.value.splice(deleteIndex.value, 1)
+                toast.success('Projekt sikeresen törölve!')
+            } else {
+                toast.error('Projekt törlése sikertelen!')
             }
+            deleteModal.value = false
         }
 
         getProjects();
@@ -166,6 +192,8 @@ export default {
             addContact,
             removeContact,
             sendingProject,
+            deleteModal,
+            showDeleteModal,
         }
     }
 }
