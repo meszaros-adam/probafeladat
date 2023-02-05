@@ -21,6 +21,7 @@
                     <div>Leírás: {{ project.description }}</div>
                     <div>Státusz: {{ project.status }}</div>
                     <div>Kapcsolattartók száma: {{ project.contacts_count }}</div>
+                    <div>Létrehozva: {{ project.created_at }}</div>
                 </div>
             </div>
             <!-- pagination -->
