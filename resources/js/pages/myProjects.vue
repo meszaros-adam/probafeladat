@@ -8,6 +8,7 @@
                     <h3>Név: {{ project.name }}</h3>
                     <div>Leírás: {{ project.description }}</div>
                     <div>Státusz: {{ project.status }}</div>
+                    <div>Kapcsolattartók száma: {{ project.contacts_count }}</div>
                     <div>Létrehozva: {{ project.created_at }}</div>
                     <div>Frissítve: {{ project.updated_at }}</div>
                 </div>
@@ -21,6 +22,11 @@
                 </div>
             </div>
         </div>
+
+        <!-- pagination -->
+        <b-pagination v-model="currentPage" :total-rows="total" :per-page="10" aria-controls="my-table" align="center">
+        </b-pagination>
+        <!-- pagination -->
 
         <!-- Adding Modal -->
         <b-modal v-model="addingModal" title="Projekt létrehozása!" hide-footer>
@@ -82,7 +88,7 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { callApi } from '../common/common'
 import { useToast } from "vue-toastification";
 import deleteButtonVue from '../partials/deleteButton.vue'
@@ -92,17 +98,30 @@ export default {
     setup() {
         const toast = useToast();
 
+        //get projects
+
         const projects = ref([])
 
+        const currentPage = ref(1)
+        const total = ref(0)
+
+        watch(currentPage, () => {
+            getProjects()
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        })
+
         const getProjects = async () => {
-            const res = await callApi('get', '/get-my-projects')
+            const res = await callApi('get', `/get-my-projects?page=${currentPage.value}`)
 
             if (res.status == 200) {
                 projects.value = res.data.data
+                total.value = res.data.total
             } else {
                 toast.error('Nem sikerült betölteni a projekteket!')
             }
         }
+
+        getProjects();
 
         //adding project
         const addingModal = ref(false)
@@ -181,8 +200,6 @@ export default {
             deleteModal.value = false
         }
 
-        getProjects();
-
         return {
             projects,
             deleteProject,
@@ -194,6 +211,8 @@ export default {
             sendingProject,
             deleteModal,
             showDeleteModal,
+            total,
+            currentPage,
         }
     }
 }

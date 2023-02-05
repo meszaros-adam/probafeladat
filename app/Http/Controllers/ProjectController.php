@@ -20,6 +20,10 @@ class ProjectController extends Controller
             return Project::where('status', $request->filter)->orderBy('id', 'desc')->withCount('contacts')->paginate(10);
         }
     }
+    public function getMyProjects()
+    {
+        return Project::where('user_id', Auth::user()->id)->withCount('contacts')->paginate(10);
+    }
     public function getSingle(Request $request)
     {
         return Project::where('id', $request->id)->with('contacts')->first();
@@ -116,8 +120,5 @@ class ProjectController extends Controller
         ]);
 
         return Project::where('id', $request->id)->delete();
-    }
-    public function getMyProjects(){
-        return Project::where('user_id', Auth::user()->id)->paginate(10);
     }
 }
