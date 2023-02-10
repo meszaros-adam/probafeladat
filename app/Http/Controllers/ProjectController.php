@@ -107,7 +107,7 @@ class ProjectController extends Controller
                 Mail::to($contact['email'])->send(new ProjectEdited($project, $project->getChanges()));
             }
 
-            return response($project, 201);
+            return response($project, 200);
         } catch (\Throwable $th) {
             DB::rollback();
             return response($th, 500);

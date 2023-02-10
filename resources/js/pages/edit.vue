@@ -50,14 +50,19 @@
 <script>
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { callApi } from '../common/common'
 import deleteButtonVue from '../partials/deleteButton.vue'
+import { useToast } from "vue-toastification";
 export default {
     components: { deleteButtonVue },
     setup() {
+        const toast = useToast()
+        const router = useRouter()
+        const route = useRoute()
+
         const project = ref(null)
         const contact = ref({})
-        const route = useRoute()
 
         const getProject = async () => {
             const res = await callApi('get', `/get_single_project?id=${route.params.id}`,)
@@ -86,7 +91,11 @@ export default {
             const res = await callApi('post', `/edit_project?id=${project.value.id}`, project.value)
 
             if (res.status == 200) {
-                project.value = res.data
+                toast.success('Projekt sikeresen szerkesztve')
+                router.push('/my-projects')
+            }
+            else{
+                toast.error('Szerkesztés sikertelen!')
             }
         }
 
