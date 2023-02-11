@@ -13,7 +13,6 @@
                 </div>
             </div>
         </div>
-
         <div class="container">
             <div v-for="(project, p) in projects" :key="p" class="project">
                 <div>

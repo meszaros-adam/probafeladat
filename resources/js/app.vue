@@ -81,7 +81,6 @@ body {
     padding: 1rem;
     margin: 3rem 0rem;
     color: whitesmoke;
-
 }
 
 .auth .container {
