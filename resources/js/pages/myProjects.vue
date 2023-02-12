@@ -19,7 +19,7 @@
                                 <i class="bi bi-pencil"></i>
                             </button>
                         </router-link>
-                        <deleteButtonVue @click="showDeleteModal(p, project.id)"></deleteButtonVue>
+                        <deleteButtonVue @click="showDeleteModal(project.id)"></deleteButtonVue>
                     </div>
                 </div>
             </div>
@@ -179,12 +179,9 @@ export default {
         //delete Project
 
         const deleteModal = ref(false)
-
-        const deleteIndex = ref(null);
         const deleteId = ref(null);
 
-        const showDeleteModal = (index, id) => {
-            deleteIndex.value = index
+        const showDeleteModal = (id) => {
             deleteId.value = id
             deleteModal.value = true;
         }
@@ -193,7 +190,7 @@ export default {
             const res = await callApi('post', '/delete_project', { id: deleteId.value })
 
             if (res.status == 200) {
-                projects.value.splice(deleteIndex.value, 1)
+                projects.value.splice(projects.value.findIndex(obj => obj.id == deleteId.value), 1)
                 toast.success('Projekt sikeresen törölve!')
             } else {
                 toast.error('Projekt törlése sikertelen!')
