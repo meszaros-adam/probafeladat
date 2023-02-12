@@ -109,7 +109,10 @@ export default {
 
         watch(currentPage, () => {
             getProjects()
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 1000)
+            //window.scrollTo({ top: 0, behavior: 'smooth' });
         })
 
         const getProjects = async () => {
@@ -217,13 +220,18 @@ export default {
 </script>
 <style>
 .project-enter-active,
-.project-leave-active {
-    transition: 1s ease all;
+.project-leave-active,
+.project-move {
+    transition: 0.4s ease all;
 }
 
 .project-enter-from,
 .project-leave-to {
     opacity: 0;
-    transform: scale(0.6)
+    transform: scale(0.6);
+}
+
+.project-leave-active{
+    position: absolute;
 }
 </style>
