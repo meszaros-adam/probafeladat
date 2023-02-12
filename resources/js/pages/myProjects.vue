@@ -2,29 +2,30 @@
     <div class="container py-3 text-white">
         <h1 class="mb-5">Projektjeim</h1>
         <button @click="addingModal = true" class="btn btn-dark">+ Projekt hozzáadása</button>
-        <transition-group name="project">
-            <div v-for="project in projects" :key="project.id" class="bg-dark project">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h3>Név: {{ project.name }}</h3>
-                        <div>Leírás: {{ project.description }}</div>
-                        <div>Státusz: {{ project.status }}</div>
-                        <div>Kapcsolattartók száma: {{ project.contacts_count }}</div>
-                        <div>Létrehozva: {{ project.created_at }}</div>
-                        <div>Frissítve: {{ project.updated_at }}</div>
-                    </div>
-                    <div class="d-flex flex-column">
-                        <router-link :to="{ name: 'edit', params: { id: project.id } }" class="mb-2">
-                            <button title="Szerkesztés" type="button" class="btn btn-warning">
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                        </router-link>
-                        <deleteButtonVue @click="showDeleteModal(project.id)"></deleteButtonVue>
-                    </div>
+        <!-- pagination -->
+        <b-pagination v-model="currentPage" :total-rows="total" :per-page="10" aria-controls="my-table" align="center">
+        </b-pagination>
+        <!-- pagination -->
+        <div v-for="project in projects" :key="project.id" class="bg-dark project">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h3>Név: {{ project.name }}</h3>
+                    <div>Leírás: {{ project.description }}</div>
+                    <div>Státusz: {{ project.status }}</div>
+                    <div>Kapcsolattartók száma: {{ project.contacts_count }}</div>
+                    <div>Létrehozva: {{ project.created_at }}</div>
+                    <div>Frissítve: {{ project.updated_at }}</div>
+                </div>
+                <div class="d-flex flex-column">
+                    <router-link :to="{ name: 'edit', params: { id: project.id } }" class="mb-2">
+                        <button title="Szerkesztés" type="button" class="btn btn-warning">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                    </router-link>
+                    <deleteButtonVue @click="showDeleteModal(project.id)"></deleteButtonVue>
                 </div>
             </div>
-        </transition-group>
-
+        </div>
         <!-- pagination -->
         <b-pagination v-model="currentPage" :total-rows="total" :per-page="10" aria-controls="my-table" align="center">
         </b-pagination>
@@ -109,10 +110,9 @@ export default {
 
         watch(currentPage, () => {
             getProjects()
-            setTimeout(() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 1000)
-            //window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
         })
 
         const getProjects = async () => {
@@ -218,20 +218,3 @@ export default {
     }
 }
 </script>
-<style>
-.project-enter-active,
-.project-leave-active,
-.project-move {
-    transition: 0.4s ease all;
-}
-
-.project-enter-from,
-.project-leave-to {
-    opacity: 0;
-    transform: scale(0.6);
-}
-
-.project-leave-active{
-    position: absolute;
-}
-</style>
