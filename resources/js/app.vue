@@ -81,6 +81,7 @@ body {
     padding: 1rem;
     margin: 3rem 0rem;
     color: whitesmoke;
+    animation: slide 2s ease-in-out 1s 1;
 }
 
 .auth .container {

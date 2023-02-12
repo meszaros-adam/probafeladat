@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div class="d-flex container py-3 bg-dark justify-content-end align-items-center">
+        <div class="d-flex container py-3 my-4 bg-dark justify-content-end align-items-center">
             <div class="d-flex align-items-center">
                 <div class="text-white me-3">Szűrés: </div>
                 <div>
-                    <select v-model="filterProjects" class="form-select">
+                    <select v-model="status" class="form-select">
                         <option value="null">Nincs</option>
                         <option value="waiting-for-development">Fejlesztésre vár</option>
                         <option value="in-progress">Folyamatban</option>
@@ -14,6 +14,11 @@
             </div>
         </div>
         <div class="container">
+            <!-- pagination -->
+            <b-pagination v-model="currentPage" :total-rows="total" :per-page="10" aria-controls="my-table"
+                align="center">
+            </b-pagination>
+            <!-- pagination -->
             <div v-for="(project, p) in projects" :key="p" class="project">
                 <div>
                     <h3>Név: {{ project.name }}</h3>
@@ -47,19 +52,20 @@ export default {
         const currentPage = ref(1)
         const total = ref(0)
         const projects = ref([])
-        const filterProjects = ref(null)
+        //filter by status
+        const status = ref(null)
 
         watch(currentPage, () => {
             getProjects()
             window.scrollTo({ top: 0, behavior: 'smooth' });
         })
 
-        watch(filterProjects, () => {
+        watch(status, () => {
             getProjects()
         })
 
         const getProjects = async () => {
-            const res = await callApi('get', `/get_projects?page=${currentPage.value}&filter=${filterProjects.value}`)
+            const res = await callApi('get', `/get_projects?page=${currentPage.value}&status=${status.value}`)
 
             if (res.status == 200) {
                 projects.value = res.data.data
@@ -74,7 +80,7 @@ export default {
             currentPage,
             total,
             getProjects,
-            filterProjects,
+            status,
         }
     }
 }

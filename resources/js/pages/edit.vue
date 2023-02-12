@@ -94,7 +94,7 @@ export default {
                 toast.success('Projekt sikeresen szerkesztve')
                 router.push('/my-projects')
             }
-            else{
+            else {
                 toast.error('Szerkesztés sikertelen!')
             }
         }

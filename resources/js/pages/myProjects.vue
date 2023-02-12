@@ -1,7 +1,20 @@
 <template>
     <div class="container py-3 text-white">
         <h1 class="mb-5">Projektjeim</h1>
-        <button @click="addingModal = true" class="btn btn-dark">+ Projekt hozzáadása</button>
+        <div class="d-flex container py-3 my-4 bg-dark justify-content-between align-items-center">
+            <button @click="addingModal = true" class="btn btn-light">+ Projekt hozzáadása</button>
+            <div class="d-flex align-items-center">
+                <div class="text-white me-3">Szűrés: </div>
+                <div>
+                    <select v-model="status" class="form-select">
+                        <option value="null">Nincs</option>
+                        <option value="waiting-for-development">Fejlesztésre vár</option>
+                        <option value="in-progress">Folyamatban</option>
+                        <option value="ready">Kész</option>
+                    </select>
+                </div>
+            </div>
+        </div>
         <!-- pagination -->
         <b-pagination v-model="currentPage" :total-rows="total" :per-page="10" aria-controls="my-table" align="center">
         </b-pagination>
@@ -105,6 +118,8 @@ export default {
 
         const projects = ref([])
 
+        const status = ref(null)
+
         const currentPage = ref(1)
         const total = ref(0)
 
@@ -115,8 +130,12 @@ export default {
 
         })
 
+        watch(status, () => {
+            getProjects()
+        })
+
         const getProjects = async () => {
-            const res = await callApi('get', `/get-my-projects?page=${currentPage.value}`)
+            const res = await callApi('get', `/get-my-projects?page=${currentPage.value}&status=${status.value}`)
 
             if (res.status == 200) {
                 projects.value = res.data.data
@@ -214,6 +233,7 @@ export default {
             showDeleteModal,
             total,
             currentPage,
+            status,
         }
     }
 }
