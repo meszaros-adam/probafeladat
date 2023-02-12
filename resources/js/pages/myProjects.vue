@@ -3,17 +3,7 @@
         <h1 class="mb-5">Projektjeim</h1>
         <div class="d-flex container py-3 my-4 bg-dark justify-content-between align-items-center">
             <button @click="addingModal = true" class="btn btn-light">+ Projekt hozzáadása</button>
-            <div class="d-flex align-items-center">
-                <div class="text-white me-3">Szűrés: </div>
-                <div>
-                    <select v-model="status" class="form-select">
-                        <option value="null">Nincs</option>
-                        <option value="waiting-for-development">Fejlesztésre vár</option>
-                        <option value="in-progress">Folyamatban</option>
-                        <option value="ready">Kész</option>
-                    </select>
-                </div>
-            </div>
+            <filterProjects v-model="status"></filterProjects>
         </div>
         <!-- pagination -->
         <b-pagination v-model="currentPage" :total-rows="total" :per-page="10" aria-controls="my-table" align="center">
@@ -108,9 +98,10 @@ import { ref, watch } from 'vue';
 import { callApi } from '../common/common'
 import { useToast } from "vue-toastification";
 import deleteButtonVue from '../partials/deleteButton.vue'
+import filterProjects from '../partials/filterProjects.vue';
 import { validateEmail } from '../common/common.js';
 export default {
-    components: { deleteButtonVue },
+    components: { deleteButtonVue, filterProjects },
     setup() {
         const toast = useToast();
 

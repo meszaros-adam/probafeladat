@@ -1,17 +1,7 @@
 <template>
     <div>
         <div class="d-flex container py-3 my-4 bg-dark justify-content-end align-items-center">
-            <div class="d-flex align-items-center">
-                <div class="text-white me-3">Szűrés: </div>
-                <div>
-                    <select v-model="status" class="form-select">
-                        <option value="null">Nincs</option>
-                        <option value="waiting-for-development">Fejlesztésre vár</option>
-                        <option value="in-progress">Folyamatban</option>
-                        <option value="ready">Kész</option>
-                    </select>
-                </div>
-            </div>
+            <filterProjects v-model="status"></filterProjects>
         </div>
         <div class="container">
             <!-- pagination -->
@@ -42,8 +32,9 @@ import { ref, watch } from 'vue'
 import { callApi } from '../common/common.js'
 import { useToast } from "vue-toastification";
 import deleteButtonVue from '../partials/deleteButton.vue'
+import filterProjects from '../partials/filterProjects.vue';
 export default {
-    components: { deleteButtonVue },
+    components: { deleteButtonVue, filterProjects},
     setup() {
         const toast = useToast();
 
