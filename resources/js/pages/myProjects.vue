@@ -55,12 +55,14 @@
                 </div>
                 <div class="mb-3 border-top">
                     <div class="mb-3">Kapcsolattartók listája: </div>
-                    <div class="mb-3 d-flex justify-content-between align-items-center bg-primary p-1"
-                        v-for="(contact, c) in project.contacts" :key="c">
-                        <span class="me-3">{{ contact.name }}</span>
-                        <span>{{ contact.email }}</span>
-                        <deleteButtonVue @click="removeContact(c)"></deleteButtonVue>
-                    </div>
+                    <transition-group name="contact">
+                        <div class="mb-3 d-flex justify-content-between align-items-center bg-primary p-1"
+                            v-for="(contact, c) in project.contacts" :key="contact">
+                            <span class="me-3">{{ contact.name }}</span>
+                            <span>{{ contact.email }}</span>
+                            <deleteButtonVue @click="removeContact(c)"></deleteButtonVue>
+                        </div>
+                    </transition-group>
                 </div>
                 <div class="mb-3 border-top">
                     <label for="contact-name" class="form-label">Név</label>
@@ -162,10 +164,10 @@ export default {
         const contact = ref(contactInitialValue())
 
         const addContact = () => {
+            if (contact.value.name.trim().length< 4) return toast.error('A kapcsolat neve legalább 4 karakter legyen!')
             if (!validateEmail(contact.value.email)) return toast.error('Érvényes email címet kell megadni!')
 
-            project.value.contacts.push(contact.value)
-
+            project.value.contacts.unshift(contact.value)
             contact.value = contactInitialValue()
         }
 

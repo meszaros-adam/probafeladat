@@ -20,14 +20,16 @@
         </div>
         <div class="mb-3  border-top">
             <div class="mb-3">Kapcsolattartók:</div>
-            <div class="mb-3 bg-primary p-1 d-flex text-white justify-content-between align-items-center"
-                v-for="(contact, c) in project.contacts" :key="c">
-                <div>
-                    <span class="me-3">{{ contact.name }}</span>
-                    <span>{{ contact.email }}</span>
+            <transition-group name="contact">
+                <div class="mb-3 bg-primary p-1 d-flex text-white justify-content-between align-items-center"
+                    v-for="(contact, c) in project.contacts" :key="contact">
+                    <div>
+                        <span class="me-3">{{ contact.name }}</span>
+                        <span>{{ contact.email }}</span>
+                    </div>
+                    <deleteButtonVue @click="removeContact(c)"></deleteButtonVue>
                 </div>
-                <deleteButtonVue @click="removeContact(c)"></deleteButtonVue>
-            </div>
+            </transition-group>
         </div>
         <div class="mb-3  border-top">
             <label for="contact-name" class="form-label">Név</label>
@@ -54,6 +56,7 @@ import { useRouter } from 'vue-router'
 import { callApi } from '../common/common'
 import deleteButtonVue from '../partials/deleteButton.vue'
 import { useToast } from "vue-toastification";
+import { validateEmail } from '../common/common.js';
 export default {
     components: { deleteButtonVue },
     setup() {
@@ -75,7 +78,10 @@ export default {
         getProject()
 
         const addContact = () => {
-            project.value.contacts.push(contact.value)
+            if (contact.value.name.trim().length < 4) return toast.error('A kapcsolat neve legalább 4 karakter legyen!')
+            if (!validateEmail(contact.value.email)) return toast.error('Érvényes email címet kell megadni!')
+
+            project.value.contacts.unshift(contact.value)
 
             contact.value = {
                 name: '',

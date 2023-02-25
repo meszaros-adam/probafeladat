@@ -144,4 +144,23 @@ body {
 .form-control {
     font-weight: 900;
 }
+
+/* Animated contacts list */
+.contact-move,
+.contact-enter-active,
+.contact-leave-active {
+    transition: all 0.5s ease;
+}
+
+.contact-enter-from,
+.contact-leave-to {
+    transform: translateX(-50px);
+    opacity: 0;
+}
+
+.contact-leave-active {
+    position: absolute;
+}
+
+/* Animated contacts list */
 </style>
