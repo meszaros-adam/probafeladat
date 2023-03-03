@@ -9,26 +9,28 @@
         <b-pagination v-model="currentPage" :total-rows="total" :per-page="10" aria-controls="my-table" align="center">
         </b-pagination>
         <!-- pagination -->
-        <div v-for="project in projects" :key="project.id" class="bg-dark project">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h3>Név: {{ project.name }}</h3>
-                    <div>Leírás: {{ project.description }}</div>
-                    <div>Státusz: {{ project.status }}</div>
-                    <div>Kapcsolattartók száma: {{ project.contacts_count }}</div>
-                    <div>Létrehozva: {{ project.created_at }}</div>
-                    <div>Frissítve: {{ project.updated_at }}</div>
-                </div>
-                <div class="d-flex flex-column">
-                    <router-link :to="{ name: 'edit', params: { id: project.id } }" class="mb-2">
-                        <button title="Szerkesztés" type="button" class="btn btn-warning">
-                            <i class="bi bi-pencil"></i>
-                        </button>
-                    </router-link>
-                    <deleteButtonVue @click="showDeleteModal(project.id)"></deleteButtonVue>
+        <transition-group name="project">
+            <div v-for="project in projects" :key="project.id" class="bg-dark project">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h3>Név: {{ project.name }}</h3>
+                        <div>Leírás: {{ project.description }}</div>
+                        <div>Státusz: {{ project.status }}</div>
+                        <div>Kapcsolattartók száma: {{ project.contacts_count }}</div>
+                        <div>Létrehozva: {{ project.created_at }}</div>
+                        <div>Frissítve: {{ project.updated_at }}</div>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <router-link :to="{ name: 'edit', params: { id: project.id } }" class="mb-2">
+                            <button title="Szerkesztés" type="button" class="btn btn-warning">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                        </router-link>
+                        <deleteButtonVue @click="showDeleteModal(project.id)"></deleteButtonVue>
+                    </div>
                 </div>
             </div>
-        </div>
+        </transition-group>
         <!-- pagination -->
         <b-pagination v-model="currentPage" :total-rows="total" :per-page="10" aria-controls="my-table" align="center">
         </b-pagination>
@@ -119,7 +121,7 @@ export default {
         watch(currentPage, () => {
             getProjects()
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            //window.scrollTo({ top: 0, behavior: 'smooth' });
 
         })
 
@@ -164,7 +166,7 @@ export default {
         const contact = ref(contactInitialValue())
 
         const addContact = () => {
-            if (contact.value.name.trim().length< 4) return toast.error('A kapcsolat neve legalább 4 karakter legyen!')
+            if (contact.value.name.trim().length < 4) return toast.error('A kapcsolat neve legalább 4 karakter legyen!')
             if (!validateEmail(contact.value.email)) return toast.error('Érvényes email címet kell megadni!')
 
             project.value.contacts.unshift(contact.value)

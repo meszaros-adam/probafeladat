@@ -2,9 +2,11 @@
     <!-- NAV  -->
     <nav class="navbar">
         <div class="container d-flex justify-content-center text-white">
-            <router-link to="/" class="navbar-brand text-white mx-auto">
-                Projektkezelő!
-            </router-link>
+            <Transition name="bounce" appear>
+                <router-link to="/" class="navbar-brand text-white mx-auto">
+                    Projektkezelő!
+                </router-link>
+            </Transition>
             <div v-if="user">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -30,7 +32,11 @@
     <!-- NAV -->
     <!-- ROUTER -->
     <div class="my-3">
-        <router-view> </router-view>
+        <router-view v-slot="{ Component }">
+            <transition name="fade" mode="out-in">
+                <component :is="Component" />
+            </transition>
+        </router-view>
     </div>
     <!-- ROUTER -->
 </template>
@@ -163,4 +169,56 @@ body {
 }
 
 /* Animated contacts list */
+
+/* Animated projects list */
+.project-move,
+.project-enter-active,
+.project-leave-active {
+    transition: all 1s ease;
+}
+
+.project-enter-from {
+    transform: translateX(-50px);
+    opacity: 0;
+}
+
+.project-leave-to {
+    transform: translateX(+50px);
+    opacity: 0;
+}
+
+.project-leave-active {
+    position: absolute;
+}
+
+/* Animated projects list */
+
+/* bounce animation */
+.bounce-enter-active {
+    animation: bounce-in 1s;
+}
+
+@keyframes bounce-in {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.25);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* bounce animation */
+
+/* fade animation */
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s ease-out;
+}
+
+/* fade animation */
 </style>
