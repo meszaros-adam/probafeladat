@@ -4,6 +4,7 @@ import list from './pages/list.vue'
 import login from './pages/login.vue'
 import register from './pages/register.vue'
 import myProjects from './pages/myProjects.vue'
+import project from './pages/project.vue'
 
 const routes = [
     {
@@ -30,6 +31,11 @@ const routes = [
         path: '/my-projects',
         name: 'myProjects',
         component: myProjects,
+    },
+    {
+        path: '/projects/:projectId',
+        name: 'project',
+        component: project,
     },
 ]
 

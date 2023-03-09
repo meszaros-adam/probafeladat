@@ -5,24 +5,24 @@
         </div>
         <div class="container">
             <!-- pagination -->
-            <b-pagination v-model="currentPage" :total-rows="total" :per-page="10" aria-controls="my-table"
-                align="center">
+            <b-pagination v-model="currentPage" :total-rows="total" :per-page="10" aria-controls="my-table" align="center">
             </b-pagination>
             <!-- pagination -->
             <transition-group name="project">
                 <div v-for="project in projects" :key="project.id" class="project">
-                    <div>
-                        <h3>Név: {{ project.name }}</h3>
-                        <div>Leírás: {{ project.description }}</div>
-                        <div>Státusz: {{ project.status }}</div>
-                        <div>Kapcsolattartók száma: {{ project.contacts_count }}</div>
-                        <div>Létrehozva: {{ project.created_at }}</div>
-                    </div>
+                    <router-link :to="{ name: 'project', params: { projectId: project.id } }">
+                        <div>
+                            <h3>Név: {{ project.name }}</h3>
+                            <div>Leírás: {{ project.description }}</div>
+                            <div>Státusz: {{ project.status }}</div>
+                            <div>Kapcsolattartók száma: {{ project.contacts_count }}</div>
+                            <div>Létrehozva: {{ project.created_at }}</div>
+                        </div>
+                    </router-link>
                 </div>
             </transition-group>
             <!-- pagination -->
-            <b-pagination v-model="currentPage" :total-rows="total" :per-page="10" aria-controls="my-table"
-                align="center">
+            <b-pagination v-model="currentPage" :total-rows="total" :per-page="10" aria-controls="my-table" align="center">
             </b-pagination>
             <!-- pagination -->
         </div>

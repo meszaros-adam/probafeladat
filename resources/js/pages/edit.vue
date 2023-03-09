@@ -72,6 +72,8 @@ export default {
 
             if (res.status == 200) {
                 project.value = res.data
+            } else {
+                toast.error('Projekt betöltése sikertelen!')
             }
         }
 

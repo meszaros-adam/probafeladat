@@ -221,4 +221,18 @@ body {
 }
 
 /* fade animation */
+
+/* it styles router link */
+a,
+a :hover {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.project:hover {
+    transform: scale(1.1);
+    transition: all 0.5s ease-out;
+}
+
+/* it styles router link */
 </style>
