@@ -90,17 +90,6 @@ body {
     animation: slide 2s ease-in-out 1s 1;
 }
 
-.auth .container {
-    background-color: whitesmoke;
-    border: 2px solid black;
-}
-
-.auth h1 {
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 5px dashed var(--primaryColor);
-}
-
 .button {
     background-color: var(--primaryColor);
     color: whitesmoke;
@@ -224,14 +213,14 @@ body {
 
 /* it styles router link */
 a,
-a :hover {
+a:hover {
     color: whitesmoke;
     text-decoration: none;
 }
 
-.project:hover {
+.list .project:hover {
     transform: scale(1.1);
-    transition: all 0.5s ease-out;
+    transition: all 0.3s ease-out;
 }
 
 /* it styles router link */

@@ -1,5 +1,5 @@
 <template>
-    <div class="container py-3 text-white">
+    <pageContainer>
         <h1 class="mb-5">Projektjeim</h1>
         <div class="d-flex container py-3 my-4 bg-dark justify-content-between align-items-center">
             <button @click="addingModal = true" class="btn btn-light">+ Projekt hozzáadása</button>
@@ -93,19 +93,19 @@
             </div>
         </b-modal>
         <!-- Delete Modal -->
-    </div>
-
+    </pageContainer>
 </template>
 
 <script>
 import { ref, watch } from 'vue';
 import { callApi } from '../common/common'
 import { useToast } from "vue-toastification";
+import { validateEmail } from '../common/common.js';
 import deleteButtonVue from '../partials/deleteButton.vue'
 import filterProjects from '../partials/filterProjects.vue';
-import { validateEmail } from '../common/common.js';
+import pageContainer from '../partials/pageContainer.vue';
 export default {
-    components: { deleteButtonVue, filterProjects },
+    components: { deleteButtonVue, filterProjects, pageContainer },
     setup() {
         const toast = useToast();
 

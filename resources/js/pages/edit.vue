@@ -1,5 +1,5 @@
 <template>
-    <div v-if="project" class="container bg-dark text-white my-5 p-3 ">
+    <pageContainer v-if="project" class="bg-dark">
         <h1>Project szerkesztése: </h1>
         <div class="mb-3">
             <label for="name" class="form-label">Név:</label>
@@ -46,7 +46,7 @@
             <button @click="edit" type="button" class="button">Mentés</button>
         </div>
 
-    </div>
+    </pageContainer>
 </template>
 
 <script>
@@ -54,11 +54,12 @@ import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useRouter } from 'vue-router'
 import { callApi } from '../common/common'
-import deleteButtonVue from '../partials/deleteButton.vue'
 import { useToast } from "vue-toastification";
 import { validateEmail } from '../common/common.js';
+import deleteButtonVue from '../partials/deleteButton.vue'
+import pageContainer from '../partials/pageContainer.vue';
 export default {
-    components: { deleteButtonVue },
+    components: { deleteButtonVue, pageContainer },
     setup() {
         const toast = useToast()
         const router = useRouter()

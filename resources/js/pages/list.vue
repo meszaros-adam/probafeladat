@@ -1,9 +1,9 @@
 <template>
-    <div>
-        <div class="d-flex container py-3 my-4 bg-dark justify-content-end align-items-center">
+    <pageContainer>
+        <div class="d-flex container justify-content-end align-items-center">
             <filterProjects v-model="status"></filterProjects>
         </div>
-        <div class="container">
+        <div class="container list">
             <!-- pagination -->
             <b-pagination v-model="currentPage" :total-rows="total" :per-page="10" aria-controls="my-table" align="center">
             </b-pagination>
@@ -26,7 +26,7 @@
             </b-pagination>
             <!-- pagination -->
         </div>
-    </div>
+    </pageContainer>
 </template>
 
 <script>
@@ -35,8 +35,9 @@ import { callApi } from '../common/common.js'
 import { useToast } from "vue-toastification";
 import deleteButtonVue from '../partials/deleteButton.vue'
 import filterProjects from '../partials/filterProjects.vue';
+import pageContainer from '../partials/pageContainer.vue';
 export default {
-    components: { deleteButtonVue, filterProjects },
+    components: { deleteButtonVue, filterProjects, pageContainer },
     setup() {
         const toast = useToast();
 

@@ -1,6 +1,6 @@
 <template>
-    <div class="auth">
-        <div class="container p-3">
+    <authContainer>
+        <div>
             <h1>Bejelentkezés</h1>
             <div class="mb-3">
                 <label for="email" class="form-label">Email cím</label>
@@ -16,7 +16,7 @@
             </div>
             <button @click="login" class="button">Bejelentkezés</button>
         </div>
-    </div>
+    </authContainer>
 </template>
 
 <script>
@@ -24,7 +24,9 @@ import { ref } from '@vue/reactivity';
 import { callApi } from '../common/common';
 import { useToast } from 'vue-toastification';
 import { validateEmail } from '../common/common';
+import authContainer from '../partials/authContainer.vue'
 export default {
+    components: { authContainer },
     setup() {
         const toast = useToast()
 
@@ -52,6 +54,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
