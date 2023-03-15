@@ -20,8 +20,13 @@
                         <div>Létrehozva: {{ project.created_at }}</div>
                         <div>Frissítve: {{ project.updated_at }}</div>
                     </div>
-                    <div class="d-flex flex-column">
-                        <router-link :to="{ name: 'edit', params: { id: project.id } }" class="mb-2">
+                    <div class="d-flex flex-column justify-content-around">
+                        <router-link class="mb-2" :to="{ name: 'project', params: { projectId: project.id } }">
+                            <button title="Megtekintés" type="button" class="btn btn-success">
+                                <i class="bi bi-arrow-up-right"></i>
+                            </button>
+                        </router-link>
+                        <router-link class="mb-2" :to="{ name: 'edit', params: { id: project.id } }">
                             <button title="Szerkesztés" type="button" class="btn btn-warning">
                                 <i class="bi bi-pencil"></i>
                             </button>
