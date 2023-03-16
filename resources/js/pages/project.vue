@@ -1,6 +1,18 @@
-<template>
-    <pageContainer>
-        <h1>{{ project }}</h1>
+<template >
+    <pageContainer v-if="project">
+        <div class="d-flex justify-content-between mb-5">
+            <div>Tulajdonos: {{ project.owner.fullName }}</div>
+            <div class="d-flex flex-column">
+                <div>Létrehozva: {{ project.created_at }}</div>
+                <div>Módosítva: {{ project.updated_at }}</div>
+            </div>
+        </div>
+        <transition name="project-name" appear>
+            <h1 class="mb-5 project-name">{{ project.name }}</h1>
+        </transition>
+        <hr>
+        <p>Leírás: {{ project.description }}</p>
+        <div>Státusz: {{ project.status }}</div>
     </pageContainer>
 </template>
 
@@ -17,7 +29,7 @@ export default {
         const toast = useToast()
 
         //load project
-        const project = ref('')
+        const project = ref(null)
 
         const getProject = async () => {
             const res = await callApi('get', `/get_single_project?id=${route.params.projectId}`)
@@ -35,3 +47,14 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.project-name-enter-active {
+    transition: all 0.5s ease-out;
+}
+
+.project-name-enter-from {
+    transform: translateX(-50%);
+    opacity: 0;
+}
+</style>

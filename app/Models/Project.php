@@ -17,6 +17,11 @@ class Project extends Model
         return $this->hasMany(Contact::class);
     }
 
+    public function owner()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id');
+    }
+
     public function getCreatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('Y.m.d H:i');

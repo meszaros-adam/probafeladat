@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\ProjectEdited;
 use App\Models\Contact;
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -34,7 +35,7 @@ class ProjectController extends Controller
     }
     public function getSingle(Request $request)
     {
-        return Project::where('id', $request->id)->with('contacts')->first();
+        return Project::where('id', $request->id)->with('contacts', 'owner')->first();
     }
     public function add(Request $request)
     {
