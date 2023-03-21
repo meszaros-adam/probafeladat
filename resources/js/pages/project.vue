@@ -13,6 +13,18 @@
         <hr>
         <p>Leírás: {{ project.description }}</p>
         <div>Státusz: {{ project.status }}</div>
+        <button class="btn btn-primary my-3" type="button" data-bs-toggle="collapse" data-bs-target="#contacts">
+            Kapcsolatok
+        </button>
+        <div class="collapse" id="contacts">
+            <div class="card card-body text-dark my-3">
+                <div v-for="contact in project.contacts" :key="contact.id">
+                    <div>Name: {{ contact.name }}</div>
+                    <div>Email: {{ contact.email }}</div>
+                    <hr>
+                </div>
+            </div>
+        </div>
     </pageContainer>
 </template>
 
@@ -51,6 +63,10 @@ export default {
 <style scoped>
 .project-name-enter-active {
     transition: all 0.5s ease-out;
+}
+
+.container {
+    background-color: var(--containerBackground);
 }
 
 .project-name-enter-from {

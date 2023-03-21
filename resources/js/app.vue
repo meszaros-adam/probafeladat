@@ -67,6 +67,7 @@ export default {
 
 :root {
     --primaryColor: #372948;
+    --containerBackground: #212529;
 }
 
 body {
@@ -83,7 +84,7 @@ body {
 
 .project {
     border-left: 10px solid var(--primaryColor);
-    background-color: #212529;
+    background-color: var(--containerBackground);
     padding: 1rem;
     margin: 3rem 0rem;
     color: whitesmoke;

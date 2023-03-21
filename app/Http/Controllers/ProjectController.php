@@ -112,9 +112,10 @@ class ProjectController extends Controller
 
             DB::commit();
 
-            foreach ($contacts as $contact) {
+            //mail turned off becouse anti virus problems
+            /*foreach ($contacts as $contact) {
                 Mail::to($contact['email'])->send(new ProjectEdited($project, $project->getChanges()));
-            }
+            }*/
 
             return response($project, 200);
         } catch (\Throwable $th) {
