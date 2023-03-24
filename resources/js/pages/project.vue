@@ -13,7 +13,7 @@
         <hr>
         <p>Leírás: {{ project.description }}</p>
         <div>Státusz: {{ project.status }}</div>
-        <button class="btn btn-primary my-3" type="button" data-bs-toggle="collapse" data-bs-target="#contacts">
+        <button v-if="project.contacts.length > 0" class="btn btn-primary my-3" type="button" data-bs-toggle="collapse" data-bs-target="#contacts">
             Kapcsolatok
         </button>
         <div class="collapse" id="contacts">
