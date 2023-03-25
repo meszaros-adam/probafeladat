@@ -19,7 +19,7 @@
             </select>
         </div>
         <div class="mb-3  border-top">
-            <div class="mb-3">Kapcsolattartók:</div>
+            <h3 class="mb-3">Kapcsolattartók:</h3>
             <transition-group name="contact">
                 <div class="mb-3 bg-primary p-1 d-flex text-white justify-content-between align-items-center"
                     v-for="(contact, c) in project.contacts" :key="contact">
@@ -32,6 +32,7 @@
             </transition-group>
         </div>
         <div class="mb-3  border-top">
+            <h3>Kapcsolattartó hozzáadása: </h3>
             <label for="contact-name" class="form-label">Név</label>
             <input v-model="contact.name" type="text" class="form-control" id="contact-name">
             <label for="contact-email" class="form-label">Email</label>
@@ -42,11 +43,13 @@
             </button>
         </div>
         <hr>
+        <button type="button" class="button mt-3"><i class="bi bi-plus-lg"></i>Munkatárs hozzáadása</button>
         <div class="text-end">
             <button @click="edit" type="button" class="button">Mentés</button>
         </div>
-
     </pageContainer>
+
+
 </template>
 
 <script>
@@ -113,7 +116,7 @@ export default {
             contact,
             addContact,
             removeContact,
-            edit
+            edit,
         }
     }
 }

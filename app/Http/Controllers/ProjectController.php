@@ -24,13 +24,13 @@ class ProjectController extends Controller
     public function getMyProjects(Request $request)
     {
         if ($request->status == "null") {
-            return Project::where('user_id', Auth::user()->id)->withCount('contacts')->paginate(10);
+            return Project::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->withCount('contacts')->paginate(10);
         } else {
             return Project::where([
                 ['user_id', Auth::user()->id],
                 ['status', $request->status],
 
-            ])->withCount('contacts')->paginate(10);
+            ])->orderBy('id', 'desc')->withCount('contacts')->paginate(10);
         }
     }
     public function getSingle(Request $request)

@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import edit from './pages/edit.vue'
+import editProject from './pages/editProject.vue'
 import list from './pages/list.vue'
 import login from './pages/login.vue'
 import register from './pages/register.vue'
 import myProjects from './pages/myProjects.vue'
 import project from './pages/project.vue'
+import createProject from './pages/createProject.vue'
 
 const routes = [
     {
@@ -15,7 +16,7 @@ const routes = [
     {
         path: '/edit-project/:id',
         name: 'edit',
-        component: edit,
+        component: editProject,
     },
     {
         path: '/login',
@@ -37,6 +38,11 @@ const routes = [
         name: 'project',
         component: project,
     },
+    {
+        path: '/create-project',
+        name: 'createProject',
+        component: createProject
+    }
 ]
 
 const router = createRouter({
